@@ -35,7 +35,7 @@ public final class ObservableBehaviorAdapterTest {
     Observable<String> response();
   }
 
-  private final Behavior behavior = Behavior.create(new Random(2847));
+  private final NetworkBehavior behavior = NetworkBehavior.create(new Random(2847));
   private DoWorkService service;
 
   @Before public void setUp() {
@@ -45,8 +45,8 @@ public final class ObservableBehaviorAdapterTest {
       }
     };
 
-    BehaviorAdapter<?> adapter = ObservableBehaviorAdapter.create();
-    MockRetrofit mockRetrofit = new MockRetrofit(adapter, behavior);
+    NetworkBehavior.Adapter<?> adapter = ObservableBehaviorAdapter.create();
+    MockRetrofit mockRetrofit = new MockRetrofit(behavior, adapter);
     service = mockRetrofit.create(DoWorkService.class, mockService);
   }
 

@@ -20,7 +20,7 @@ import rx.functions.Func1;
 
 import static java.util.concurrent.TimeUnit.MILLISECONDS;
 
-public final class ObservableBehaviorAdapter implements BehaviorAdapter<Observable<?>> {
+public final class ObservableBehaviorAdapter implements NetworkBehavior.Adapter<Observable<?>> {
   public static ObservableBehaviorAdapter create() {
     return new ObservableBehaviorAdapter();
   }
@@ -28,7 +28,8 @@ public final class ObservableBehaviorAdapter implements BehaviorAdapter<Observab
   private ObservableBehaviorAdapter() {
   }
 
-  @Override public Observable<?> applyBehavior(final Behavior behavior, final Observable<?> value) {
+  @Override public Observable<?> applyBehavior(final NetworkBehavior behavior,
+      final Observable<?> value) {
     return Observable.timer(behavior.calculateDelay(MILLISECONDS), MILLISECONDS)
         .flatMap(new Func1<Long, Observable<?>>() {
           @Override public Observable<?> call(Long ignored) {
